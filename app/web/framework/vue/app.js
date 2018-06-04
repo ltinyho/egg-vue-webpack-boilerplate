@@ -16,7 +16,6 @@ App.init = options => {
   return App.client(options);
 };
 
-
 App.client = options => {
   Vue.prototype.$http = require('axios');
   if (options.store) {
@@ -31,8 +30,9 @@ App.client = options => {
 App.server = options => {
   if (options.store && options.router) {
     return context => {
-      options.router.push(context.state.url);
+      options.router.push(context.state.url.replace('/mm', ''));
       const matchedComponents = options.router.getMatchedComponents();
+      console.log(matchedComponents);
       if (!matchedComponents) {
         return Promise.reject({ code: '404' });
       }
@@ -42,7 +42,7 @@ App.server = options => {
             return component.preFetch(options.store);
           }
           return null;
-        })
+        }),
       ).then(() => {
         context.state = Object.assign(options.store.state, context.state);
         return new Vue(options);
@@ -65,6 +65,5 @@ App.use = component => {
 App.component = (name, component) => {
   Vue.component(name, component);
 };
-
 
 export default App;

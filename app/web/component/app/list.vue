@@ -7,7 +7,9 @@
             <li v-for="item in articleList" :key="item.id">
               <div class="point">+{{item.hits}}</div>
               <div class="card">
-                <h2><router-link :to="'/detail/'+item.id" class="nav-item-a">{{item.title}}</router-link></h2>
+                <h2>
+                  <router-link :to="'/detail/'+item.id" class="nav-item-a">{{item.title}}</router-link>
+                </h2>
                 <div>
                   <ul class="actions">
                     <li>
@@ -40,24 +42,22 @@
 
 </style>
 <script type="text/babel">
-  export default{
+  export default {
     computed: {
-      isLoading(){
-       return false;
+      isLoading() {
+        return false;
       },
       articleList() {
         return this.$store.state.articleList;
-      }
+      },
     },
-    preFetch ({ state, dispatch, commit }) {
+    preFetch({ state, dispatch, commit }) {
       return Promise.all([
-        dispatch('FETCH_ARTICLE_LIST')
-      ])
+        dispatch('FETCH_ARTICLE_LIST'),
+      ]);
     },
     beforeMount() {
-      return Promise.all([
-        this.$store.dispatch('FETCH_ARTICLE_LIST')
-      ]);
-    }
-  }
+
+    },
+  };
 </script>

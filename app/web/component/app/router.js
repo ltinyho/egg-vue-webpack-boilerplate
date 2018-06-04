@@ -8,21 +8,21 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
-  base: '/',
+  base: '/mm/',
   routes: [
     {
       path: '/',
-      component: ListView
+      component: ListView,
     },
     {
       path: '/list',
-      component: ListView
+      component: ListView,
     },
     {
       path: '/detail/:id',
-      component: () => import('./detail')
-    }
-  ]
+      component: () => import('./detail'),
+    },
+  ],
 });
 
 export default router;
